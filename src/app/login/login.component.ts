@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from "@angular/router";
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -10,27 +12,65 @@ export class LoginComponent {
   inputplaceholder="account number"
   acno=''
   pass=''
-  userDetails:any={
-    1000:{acno:1000, username:"anu", password:"abc123", balance:0},
-    1001:{acno:1001, username:"abi", password:"abc123", balance:0},
-    1003:{acno:1003, username:"amal", password:"abc123", balance:0},
-    1004:{acno:1004, username:"akhil", password:"abc123", balance:0}
+
+
+  constructor(private router:Router, private ds:DataService){ }
+
+  ngOnit():void{
   }
-  constructor(){}
 
   login(){
-    alert('login clicked')
+    var acnum=this.acno
+    var psw=this.pass
+    var userDetails=this.ds.userDetails
+
+    if(acnum in userDetails){
+      if(psw==userDetails[acnum]["password"]){
+        alert('login success')
+        this.router.navigateByUrl('dashboard')
+      }
+      else{
+        alert('incorrect password')
+      }
+    }
+    else{
+      alert('acc no not found or not registered yet!')
+    }
   }
 
-  acnoChange(event:any){
-    this.acno=event.target.value
-    console.log(this.acno);
+//   login(a:any,b:any){
+//     console.log(a.value);
+//     console.log(b.value);
     
-  }
+    
 
-  passChange(event:any){
-    this.pass=event.target.value
-    console.log(this.pass);
+//   //   // var acnum=this.acno
+//   //   // var psw=this.pass
+//   //   // var userDetails=this.userDetails
+
+//   //   // if(acnum in userDetails){
+//   //   //   if(psw==userDetails[acnum]["password"]){
+//   //   //     alert('login success')
+//   //   //   }
+//   //   //   else{
+//   //   //     alert('incorrect password')
+//   //   //   }
+//   //   // }
+//   //   // else{
+//   //   //   alert('acc no not found or not registered yet!')
+//   //   // }
+//   // }
+
+
+//   // acnoChange(event:any){
+//   //   this.acno=event.target.value
+//   //   console.log(this.acno);
     
-  }
+//   // }
+
+//   // passChange(event:any){
+//   //   this.pass=event.target.value
+//   //   console.log(this.pass);
+    
+//   // }
 }

@@ -3,13 +3,16 @@
     <h1 class="text-white">Sign into your bank account</h1>
     <form action="">
         <div class="p-3 mt-2">
-            <input (change)="acnoChange($event)" id="acid" name="acnum1" class="form-control" type="text" [placeholder]="inputplaceholder">
+            <input [(ngModel)]="acno" id="acid" name="acnum1" class="form-control" type="text" [placeholder]="inputplaceholder">
         </div>
         <div class="p-3 mt-2">
-            <input (change)="passChange($event)" id="psw1" name="paswrd1" class="form-control" type="password" placeholder="password">
+            <input [(ngModel)]="pass" id="psw1" name="paswrd1" class="form-control" type="password" placeholder="password">
         </div>
         <div class="p-3 mt-2">
             <button type="button" (click)="login()" class="btn btn-outline-light">login</button>
+        </div>
+        <div class="text-center text-white">
+            <strong>Not Registered?</strong><a style="text-decoration: none; color: aqua ;" routerLink="register" href="">Register</a>
         </div>
     </form>
 </div>
