@@ -7,10 +7,25 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  uname = ''
+  acno = ''
+  psw = ''
+  constructor(private ds: DataService) { }
 
-  constructor(private ds:DataService){}
+  register() {
+    var uname = this.uname
+    var acno = this.acno
+    var psw = this.psw
+    const result=this.ds.register(uname, acno, psw)
 
-  register(){
-    let userDetails=this.ds.userDetails
+    if(result){
+      alert('registered')
+    }
+    else{
+      alert('account number already present')      
+    }
+
+    // console.log(uname,acno,psw);
+
   }
 }

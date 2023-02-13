@@ -22,19 +22,15 @@ export class LoginComponent {
   login(){
     var acnum=this.acno
     var psw=this.pass
-    var userDetails=this.ds.userDetails
 
-    if(acnum in userDetails){
-      if(psw==userDetails[acnum]["password"]){
-        alert('login success')
-        this.router.navigateByUrl('dashboard')
-      }
-      else{
-        alert('incorrect password')
-      }
+    const result=this.ds.login(acnum,psw)
+
+    if(result){
+      alert('Login Successful')
+      this.router.navigateByUrl('dashboard')
     }
     else{
-      alert('acc no not found or not registered yet!')
+      alert('incorrect account number or password')
     }
   }
 
@@ -74,3 +70,4 @@ export class LoginComponent {
     
 //   // }
 }
+
