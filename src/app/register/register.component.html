@@ -1,15 +1,15 @@
 <div class="container w-50 rounded border border-white text-center p-5 mt-5"
     style="background-color:rgba(0, 20, 135, 0.515);">
     <h1 class="text-white">Sign up to bank</h1>
-    <form action="">
+    <form [formGroup]="registerForm" action="">
         <div class="p-3 mt-2">
-            <input [(ngModel)]="uname" id="unamid" name="usern1" class="form-control" type="text" placeholder="enter username">
+            <input formControlName="uname" id="unamid" name="usern1" class="form-control" type="text" placeholder="enter username">
         </div>
         <div class="p-3 mt-2">
-            <input [(ngModel)]="acno" id="acid" name="acnum1" class="form-control" type="text" placeholder="enter account number">
+            <input formControlName="acno" id="acid" name="acnum1" class="form-control" type="text" placeholder="enter account number">
         </div>
         <div class="p-3 mt-2">
-            <input [(ngModel)]="psw" id="psw1" name="paswrd1" class="form-control" type="password" placeholder="password">
+            <input formControlName="psw" id="psw1" name="paswrd1" class="form-control" type="password" placeholder="password">
         </div>
         <div class="p-3 mt-2">
             <button type="button" (click)="register()" class="btn btn-outline-warning">Register</button>

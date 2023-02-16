@@ -25,10 +25,13 @@ export class DashboardComponent {
     var amt = this.amt
     var acno = this.acno
     var psw = this.psw
-    const result=this.ds.deposit(amt, acno, psw)
+    const result=this.ds.deposit(acno, psw, amt)
 
-    if(acno in this.ds.userDetails){
-
+    if(result){
+      alert(`your account has been credited with amount ${amt}, balance is ${result}`)
+    }
+    else{
+      alert("incorrect account number or password")
     }
   }
 
@@ -36,5 +39,10 @@ export class DashboardComponent {
     var amt = this.amt1
     var acno = this.acno1
     var psw = this.psw1
+    const result=this.ds.withdraw(acno, psw, amt)
+    
+    if(result){
+      alert(`${amt} has been debited from your account, balance is ${result}`)
+    }
   }
 }
