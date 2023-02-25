@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -8,41 +9,58 @@ import { DataService } from '../services/data.service';
 })
 export class DashboardComponent {
   user: any
-  
-  acno: any
-  psw: any
-  amt: any
 
-  acno1:any
-  psw1:any
-  amt1:any
-   
-  constructor(private ds:DataService){
-    this.user=this.ds.currentUser
+  depositForm = this.fb.group({
+    acno: ['',[Validators.required,Validators.pattern('[0-9]+')]],
+    amt: ['',[Validators.required,Validators.pattern('[0-9]+')]],
+    psw: ['',[Validators.required,Validators.pattern('[0-9a-zA-Z]+')]]
+  })
+  withdrawForm = this.fb.group({
+    acno1: ['',[Validators.required,Validators.pattern('[0-9]+')]],
+    amt1: ['',[Validators.required,Validators.pattern('[0-9]+')]],
+    psw1: ['',[Validators.required,Validators.pattern('[0-9a-zA-Z]+')]]
+  })
+
+  constructor(private ds: DataService, private fb: FormBuilder) {
+    this.user = this.ds.currentUser
   }
 
-  deposit(){
-    var amt = this.amt
-    var acno = this.acno
-    var psw = this.psw
-    const result=this.ds.deposit(acno, psw, amt)
+  deposit() {
+    var amt = this.depositForm.value.amt
+    var acno = this.depositForm.value.acno
+    var psw = this.depositForm.value.psw
 
-    if(result){
-      alert(`your account has been credited with amount ${amt}, balance is ${result}`)
+    if (this.depositForm.valid) {
+      const result = this.ds.deposit(acno, psw, amt)
+
+      if (result) {
+        alert(`your account has been credited with amount ${amt}, balance is ${result}`)
+      }
+      else {
+        alert("incorrect account number or password")
+      }
+    }
+    else {
+      alert('Invalid form')
+    }
+
+  }
+
+  withdraw() {
+    var amt = this.withdrawForm.value.amt1
+    var acno = this.withdrawForm.value.acno1
+    var psw = this.withdrawForm.value.psw1
+
+    if (this.withdrawForm.valid) {
+      const result = this.ds.withdraw(acno, psw, amt)
+
+      if (result) {
+        alert(`${amt} has been debited from your account, balance is ${result}`)
+      }
     }
     else{
-      alert("incorrect account number or password")
+      alert('Invalid form')
     }
-  }
 
-  withdraw(){
-    var amt = this.amt1
-    var acno = this.acno1
-    var psw = this.psw1
-    const result=this.ds.withdraw(acno, psw, amt)
-    
-    if(result){
-      alert(`${amt} has been debited from your account, balance is ${result}`)
-    }
   }
 }
