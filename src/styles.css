@@ -3,3 +3,7 @@ body{
     background-image: url(./assets/5559852.jpg);
     background-size: cover
 }
+
+.style{
+    opacity: 0;
+}
